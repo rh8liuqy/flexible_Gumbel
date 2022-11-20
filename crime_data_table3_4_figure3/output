@@ -1,0 +1,77 @@
+## FG Bayesian regression
+# A tibble: 4 × 10
+  variable    mean  median     sd    mad      q5     q95  rhat ess_bulk ess_tail
+  <chr>      <dbl>   <dbl>  <dbl>  <dbl>   <dbl>   <dbl> <dbl>    <dbl>    <dbl>
+1 alpha     0.506   0.531  2.71   2.65   -3.96    4.90    1.00  108807.   63123.
+2 beta[1]  -0.160  -0.162  0.0779 0.0762 -0.286  -0.0308  1.00   59540.   26343.
+3 beta[2]   0.233   0.231  0.123  0.119   0.0362  0.437   1.00    2820.    2590.
+4 beta[3]   0.0670  0.0670 0.0143 0.0140  0.0437  0.0904  1.00   14834.   14379.
+
+> hdi(post_df$alpha)
+   lower    upper 
+-4.81607  5.84937 
+attr(,"credMass")
+[1] 0.95
+> hdi(post_df$`beta[1]`)
+      lower       upper 
+-0.31460600 -0.00810691 
+attr(,"credMass")
+[1] 0.95
+> hdi(post_df$`beta[2]`)
+      lower       upper 
+-0.00854338  0.47492200 
+attr(,"credMass")
+[1] 0.95
+> hdi(post_df$`beta[3]`)
+    lower     upper 
+0.0388336 0.0951207 
+attr(,"credMass")
+[1] 0.95
+
+## FG Frequentist regression - MLE
+
+          Estimate  Std. Error
+alpha   0.77465894  2.50370287
+beta1  -0.16577757  0.07145496
+beta2   0.21688353  0.11019137
+beta3   0.06734679  0.01314113
+
+
+> sapply(tab_FG[4:7,], function(x){round(x,3)})
+     Estimate Std..Error  lower  upper
+[1,]    0.775      2.504 -4.133  5.682
+[2,]   -0.166      0.071 -0.306 -0.026
+[3,]    0.217      0.110  0.001  0.433
+[4,]    0.067      0.013  0.042  0.093
+
+## normal Frequentist regression
+
+> summary(mean_reg)
+
+Call:
+lm(formula = df1$`murder rate` ~ df1$college + df1$poverty + 
+    df1$metropolitan)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-7.1546 -1.9730  0.0449  1.9139 21.5307 
+
+Coefficients:
+                  Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      -24.26034    5.26604  -4.607 3.13e-05 ***
+df1$college        0.46730    0.16147   2.894  0.00575 ** 
+df1$poverty        1.14011    0.22437   5.081 6.39e-06 ***
+df1$metropolitan   0.06794    0.03391   2.003  0.05092 .  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 4.464 on 47 degrees of freedom
+Multiple R-squared:  0.4376,	Adjusted R-squared:  0.4017 
+F-statistic: 12.19 on 3 and 47 DF,  p-value: 5.032e-06
+
+> confint(mean_reg,level = 0.95)
+                         2.5 %      97.5 %
+(Intercept)      -3.485425e+01 -13.6664301
+df1$college       1.424675e-01   0.7921340
+df1$poverty       6.887373e-01   1.5914901
+df1$metropolitan -2.845316e-04   0.1361647

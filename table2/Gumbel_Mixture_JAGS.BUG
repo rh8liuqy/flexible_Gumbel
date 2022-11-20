@@ -1,0 +1,15 @@
+model {
+  for (i in 1:N) {
+    ones[i] ~ dbern(p[i])
+    p[i] <- w1/sigma1*exp(-(z1[i]+exp(-z1[i])))+(1-w1)/sigma2*exp(z2[i]-exp(z2[i]))
+    z1[i] <- (y[i]-theta)/sigma1
+    z2[i] <- (y[i]-theta)/sigma2
+  }
+  #prior
+  w1 ~ dunif(0,1)
+  theta ~ dnorm(0,0.0001)
+  invsigma1 ~ dgamma(1,1)
+  sigma1 <- 1/invsigma1
+  invsigma2 ~ dgamma(1,1)
+  sigma2 <- 1/invsigma2
+}
