@@ -15,16 +15,16 @@ The probability density function (pdf) of the flexible Gumbel distribution is gi
 
 $$
 \begin{aligned}
-f(y)= & w \times \frac{1}{\sigma_1} \exp \left\{-\frac{x-\theta}{\sigma_1}-\exp \left(-\frac{x-\theta}{\sigma_1}\right)\right\}+ \\
-& (1-w) \times \frac{1}{\sigma_2} \exp \left\{\frac{x-\theta}{\sigma_2}-\exp \left(\frac{x-\theta}{\sigma_2}\right)\right\},
+f(y)= & w \times \frac{1}{\sigma_1} \exp \{-\frac{x-\theta}{\sigma_1}-\exp (-\frac{x-\theta}{\sigma_1})\}+ \\
+& (1-w) \times \frac{1}{\sigma_2} \exp \{\frac{x-\theta}{\sigma_2}-\exp (\frac{x-\theta}{\sigma_2})\},
 \end{aligned}
 $$
 
-where $w \in[0,1]$ represents the mixing proportion parameter. We denote that $Y$ follows the distribution specified by the pdf as $Y \sim \operatorname{FG}\left(\theta, \sigma_1, \sigma_2, w\right)$.
+where $w \in[0,1]$ represents the mixing proportion parameter. We denote that $Y$ follows the distribution specified by the pdf as $Y \sim \text{FG}(\theta, \sigma_1, \sigma_2, w)$.
 
 ## Sampling from the Flexible Gumbel Distribution
 
-Sampling from the flexible Gumbel distribution is straightforward due to its mixture distribution nature with two components. To generate $n$ independent and identically distributed (i.i.d.) samples from the flexible Gumbel distribution, you can utilize the provided functions in this GitHub repository. Below is an example of sampling 1000 i.i.d. samples from $\operatorname{FG}(0,1,1,0.3)$.
+Sampling from the flexible Gumbel distribution is straightforward due to its mixture distribution nature with two components. To generate $n$ independent and identically distributed (i.i.d.) samples from the flexible Gumbel distribution, you can utilize the provided functions in this GitHub repository. Below is an example of sampling 1000 i.i.d. samples from $\text{FG}(0,1,1,0.3)$.
 
 ```{r, fig.width=7, fig.height=3.5, fig.align='center'}
 source("./density.R")

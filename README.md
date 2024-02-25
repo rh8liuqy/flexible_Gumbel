@@ -15,14 +15,14 @@ distribution is given by:
 
 $$
 \begin{aligned}
-f(y)= & w \times \frac{1}{\sigma_1} \exp \left\{-\frac{x-\theta}{\sigma_1}-\exp \left(-\frac{x-\theta}{\sigma_1}\right)\right\}+ \\
-& (1-w) \times \frac{1}{\sigma_2} \exp \left\{\frac{x-\theta}{\sigma_2}-\exp \left(\frac{x-\theta}{\sigma_2}\right)\right\},
+f(y)= & w \times \frac{1}{\sigma_1} \exp \{-\frac{x-\theta}{\sigma_1}-\exp (-\frac{x-\theta}{\sigma_1})\}+ \\
+& (1-w) \times \frac{1}{\sigma_2} \exp \{\frac{x-\theta}{\sigma_2}-\exp (\frac{x-\theta}{\sigma_2})\},
 \end{aligned}
 $$
 
 where $w \in[0,1]$ represents the mixing proportion parameter. We denote
 that $Y$ follows the distribution specified by the pdf as
-$Y \sim \operatorname{FG}\left(\theta, \sigma_1, \sigma_2, w\right)$.
+$Y \sim \text{FG}(\theta, \sigma_1, \sigma_2, w)$.
 
 ## Sampling from the Flexible Gumbel Distribution
 
@@ -31,7 +31,7 @@ its mixture distribution nature with two components. To generate $n$
 independent and identically distributed (i.i.d.) samples from the
 flexible Gumbel distribution, you can utilize the provided functions in
 this GitHub repository. Below is an example of sampling 1000 i.i.d.
-samples from $\operatorname{FG}(0,1,1,0.3)$.
+samples from $\text{FG}(0,1,1,0.3)$.
 
 ``` r
 source("./density.R")
