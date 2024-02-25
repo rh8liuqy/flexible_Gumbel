@@ -45,13 +45,16 @@ stan_fit <- stan_mod$sample(
 )
 
 ## parameter estimation 
-par.est <- stan_fit$summary(c("alpha",paste0("beta[",1:P,"]")))
+par.est <- stan_fit$summary(c("alpha",paste0("beta[",1:P,"]"),"scale1","scale2"))
 print(par.est)
-post_df <- stan_fit$draws(c("alpha",paste0("beta[",1:P,"]")), format = "df")
+stan_fit$summary(c("alpha",paste0("beta[",1:P,"]"),"scale1","scale2"),~quantile(.x, probs = c(0.025, 0.25, 0.50, 0.75,0.975)))
+post_df <- stan_fit$draws(c("alpha",paste0("beta[",1:P,"]"),"scale1","scale2"), format = "df")
 hdi(post_df$alpha)
 hdi(post_df$`beta[1]`)
 hdi(post_df$`beta[2]`)
 hdi(post_df$`beta[3]`)
+hdi(post_df$scale1)
+hdi(post_df$scale2)
 
 #mcmc_trace(post_df)
 
@@ -68,9 +71,6 @@ source("../density.R")
 designX <- cbind(1,X)
 
 FG_neglog <- function(w1,sigma1,sigma2,alpha,beta1,beta2,beta3) {
-  # w1 <- pars[1]
-  # sigma1 <- pars[2]
-  # sigma2 <- pars[3]
   beta <- as.vector(c(alpha,beta1,beta2,beta3))
   eta <- as.numeric(designX %*% beta)
   p1 <- w1*rgumbel_pdf(y,eta,sigma1,log=FALSE)
@@ -94,4 +94,33 @@ summary_FG <- summary(FG_mle)
 tab_FG <- data.frame(summary_FG@coef)
 tab_FG$lower <- tab_FG$Estimate - qnorm(0.975)*tab_FG$Std..Error
 tab_FG$upper <- tab_FG$Estimate + qnorm(0.975)*tab_FG$Std..Error
-sapply(tab_FG[4:7,], function(x){round(x,3)})
+sapply(tab_FG, function(x){round(x,3)})
+
+# AIC/BIC information -----------------------------------------------------
+
+par.est <- stan_fit$summary(c("alpha",paste0("beta[",1:P,"]"),"scale1","scale2","w1"))
+
+loc.est <- as.numeric(as.matrix(X) %*% par.est$median[c(2,3,4)] + par.est$median[1])
+source("../density.R")
+
+# Bayesian model
+loglik_value <- sum(mixture_gumbel_pdf(x = as.numeric(df1$`murder rate`) - loc.est,
+                                       w1 = par.est$median[7],
+                                       loc = 0.0,
+                                       scale1 = par.est$median[5],
+                                       scale2 = par.est$median[6],
+                                       log=TRUE))
+AIC_value <- -2*loglik_value + 2*(7) ##239.3938
+BIC_value <- -2*loglik_value + 7*log(length(df1$`murder rate`)) ##252.9166
+
+# Frequentist model
+loc.est <- as.numeric(as.matrix(X) %*% tab_FG[c(5,6,7),1] + tab_FG[4,1])
+
+loglik_value <- sum(mixture_gumbel_pdf(x = as.numeric(df1$`murder rate`) - loc.est,
+                                       w1 = tab_FG[1,1],
+                                       loc = 0.0,
+                                       scale1 = tab_FG[2,1],
+                                       scale2 = tab_FG[3,1],
+                                       log=TRUE))
+AIC_value <- -2*loglik_value + 2*(7) ##238.7104
+BIC_value <- -2*loglik_value + 7*log(length(df1$`murder rate`)) ##252.2332

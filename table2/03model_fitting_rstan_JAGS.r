@@ -20,6 +20,25 @@ fit <- stan(file = 'model_fitting.stan',
             chains = 15)
 
 summary(fit)
+
+# AIC of FG ---------------------------------------------------------------
+
+sum_fit <- summary(fit)
+
+sum_fit$summary[,6][1:4]
+
+loglik_value <- sum(mixture_gumbel_pdf(x = df1$change,
+                                       w1 = sum_fit$summary[,6][1:4][1],
+                                       loc = sum_fit$summary[,6][1:4][2],
+                                       scale1 = sum_fit$summary[,6][1:4][3],
+                                       scale2 = sum_fit$summary[,6][1:4][4],
+                                       log=TRUE))
+AIC_value <- -2*loglik_value + 2*(4) ##2506.299
+
+# BIC of FG model ---------------------------------------------------------
+
+BIC_value <- -2*loglik_value + 4*log(length(df1$change)) ##2521.909
+
 #rstan::traceplot(fit)
 saveRDS(fit,"stanoutput.rds")
 
