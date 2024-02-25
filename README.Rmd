@@ -24,7 +24,7 @@ where $w \in[0,1]$ represents the mixing proportion parameter. We denote that $Y
 
 ## Sampling from the Flexible Gumbel Distribution
 
-Sampling from the flexible Gumbel distribution is straightforward due to its mixture distribution nature with two components. To generate $n$ independent and identically distributed (i.i.d.) samples from the flexible Gumbel distribution, you can utilize the provided functions in this GitHub repository. Below is an example of sampling 1000 i.i.d. samples from $\text{FG}(0,1,1,0.3)$.
+Sampling from the flexible Gumbel distribution is straightforward due to its mixture distribution nature with two components. To generate $n$ independent and identically distributed (i.i.d.) samples from the flexible Gumbel distribution, you can utilize the provided functions in this GitHub repository. Below is an example of sampling 1000 i.i.d. samples from $\text{FG}(0,1,1,0.2)$.
 
 ```{r, fig.width=7, fig.height=3.5, fig.align='center'}
 source("./density.R")
@@ -81,7 +81,7 @@ This project includes an implementation of Markov Chain Monte Carlo (MCMC) for B
 source("./Bayes_MH_v4.0.r")
 
 # Set initial parameter values
-w1_initial <- 0.3
+w1_initial <- 0.2
 loc_initial <- 0
 scale1_initial <- 1
 scale2_initial <- 1

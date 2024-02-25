@@ -31,7 +31,7 @@ its mixture distribution nature with two components. To generate $n$
 independent and identically distributed (i.i.d.) samples from the
 flexible Gumbel distribution, you can utilize the provided functions in
 this GitHub repository. Below is an example of sampling 1000 i.i.d.
-samples from $\text{FG}(0,1,1,0.3)$.
+samples from $\text{FG}(0,1,1,0.2)$.
 
 ``` r
 source("./density.R")
@@ -108,7 +108,7 @@ Bayesian inference for the FG distribution using our provided functions.
 source("./Bayes_MH_v4.0.r")
 
 # Set initial parameter values
-w1_initial <- 0.3
+w1_initial <- 0.2
 loc_initial <- 0
 scale1_initial <- 1
 scale2_initial <- 1
@@ -136,8 +136,8 @@ estimation <- data.frame(t(round(summary(output)[[2]][, 3], 3)))
 print(estimation)
 ```
 
-    ##     w1    loc scale1 scale2
-    ## 1 0.23 -0.003  1.036  0.981
+    ##      w1    loc scale1 scale2
+    ## 1 0.238 -0.006  1.022  0.983
 
 ``` r
 SE <- round(summary(output)[[1]][, 2], 3)
@@ -145,7 +145,7 @@ print(SE)
 ```
 
     ##     w1    loc scale1 scale2 
-    ##  0.063  0.065  0.135  0.037
+    ##  0.061  0.062  0.122  0.036
 
 ## R shiny app for the Flexible Gumbel Distribution
 
