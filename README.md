@@ -15,8 +15,8 @@ distribution is given by:
 
 $$
 \begin{aligned}
-f(y)= & w \times \frac{1}{\sigma_1} \exp \{-\frac{x-\theta}{\sigma_1}-\exp (-\frac{x-\theta}{\sigma_1})\}+ \\
-& (1-w) \times \frac{1}{\sigma_2} \exp \{\frac{x-\theta}{\sigma_2}-\exp (\frac{x-\theta}{\sigma_2})\},
+f(y)= & w \times \frac{1}{\sigma_1} \exp [-\frac{x-\theta}{\sigma_1}-\exp (-\frac{x-\theta}{\sigma_1})]+ \\
+& (1-w) \times \frac{1}{\sigma_2} \exp [\frac{x-\theta}{\sigma_2}-\exp (\frac{x-\theta}{\sigma_2})],
 \end{aligned}
 $$
 
