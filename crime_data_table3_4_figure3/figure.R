@@ -15,7 +15,7 @@ color_scheme_set("brightblue")
 ## data import
 df1 <- readxl::read_xlsx("./crime.xlsx")
 df1$State.initial <- replace(df1$State.initial,is.na(df1$State.initial),"")
-
+df1$State.initial[9] <- "D.C."
 
 library(latticeExtra)
 p1 <- splom(~df1[c(6,4,9,3)])
